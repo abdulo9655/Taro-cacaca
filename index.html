@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ASTRA TAROT — เปิดไพ่ด้วยตัวเอง</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#070817;
+    --panel:#0d1023;
+    --panel2:#12152c;
+    --purple:#8b4dff;
+    --purple2:#b26cff;
+    --blue:#4d8cff;
+    --gold:#e9c77b;
+    --gold2:#ffe7a6;
+    --text:#f6f3ff;
+    --muted:#9996b3;
+    --line:rgba(219,190,255,.18);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(102,68,255,.30),transparent 35%),
+        radial-gradient(circle at 90% 20%,rgba(38,110,255,.12),transparent 25%),
+        radial-gradient(circle at 20% 70%,rgba(130,45,255,.10),transparent 30%),
+        #070817;
+    color:var(--text);
+    font-family:'Kanit',sans-serif;
+    overflow-x:hidden;
+}
+
+/* ================= STARS ================= */
+
+.stars,
+.stars2{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.stars{
+    background-image:
+      radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.5px);
+    background-size:90px 90px;
+    animation:starMove 35s linear infinite;
+    opacity:.25;
+}
+
+.stars2{
+    background-image:
+      radial-gradient(circle,rgba(195,166,255,.7) 1px,transparent 1.5px);
+    background-size:150px 150px;
+    animation:starMove 60s linear infinite reverse;
+    opacity:.18;
+}
+
+@keyframes starMove{
+    to{transform:translateY(-150px)}
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:225px;
+    height:100vh;
+    background:rgba(5,7,19,.92);
+    border-right:1px solid var(--line);
+    backdrop-filter:blur(20px);
+    z-index:100;
+    padding:25px 15px;
+}
+
+.brand{
+    padding:8px 12px 25px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brandIcon{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid var(--gold);
+    display:grid;
+    place-items:center;
+    color:var(--gold);
+    font-size:21px;
+    box-shadow:0 0 20px rgba(233,199,123,.15);
+}
+
+.brandText{
+    font-family:'Playfair Display',serif;
+}
+
+.brandText b{
+    display:block;
+    color:var(--gold2);
+    letter-spacing:1px;
+    font-size:16px;
+}
+
+.brandText span{
+    font-family:'Kanit';
+    color:#8d8aa4;
+    font-size:10px;
+}
+
+.menu{
+    margin-top:10px;
+}
+
+.menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#aaa8bf;
+    padding:13px 12px;
+    margin:3px 0;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    font-family:inherit;
+    font-size:14px;
+    text-align:left;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.menu button:hover,
+.menu button.active{
+    color:white;
+    background:linear-gradient(90deg,rgba(131,72,255,.35),rgba(72,78,190,.08));
+    box-shadow:inset 3px 0 0 #9b63ff;
+}
+
+.menuIcon{
+    width:24px;
+    text-align:center;
+    font-size:18px;
+}
+
+.divider{
+    height:1px;
+    background:var(--line);
+    margin:22px 8px;
+}
+
+.spreadOptions{
+    color:#77758f;
+    font-size:11px;
+    padding:0 12px 8px;
+}
+
+.spreadBtn{
+    border:1px solid rgba(255,255,255,.08)!important;
+    background:rgba(255,255,255,.025)!important;
+    display:block!important;
+}
+
+.spreadBtn.active{
+    background:linear-gradient(90deg,#52209b,#27135d)!important;
+    border-color:#7445b9!important;
+}
+
+.spreadBtn strong{
+    display:block;
+    color:#eee;
+}
+
+.spreadBtn small{
+    color:#77758e;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:225px;
+    min-height:100vh;
+}
+
+.topbar{
+    height:70px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding:0 28px;
+    gap:12px;
+}
+
+.topBtn{
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.04);
+    color:#ddd9ee;
+    padding:9px 15px;
+    border-radius:30px;
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.content{
+    max-width:1200px;
+    margin:auto;
+    padding:25px 25px 70px;
+}
+
+.title{
+    text-align:center;
+    margin:10px 0 25px;
+}
+
+.title h1{
+    font-family:'Playfair Display',serif;
+    font-size:36px;
+    color:#e8d1ff;
+    text-shadow:0 0 30px rgba(158,93,255,.25);
+}
+
+.title p{
+    color:#85829d;
+    margin-top:4px;
+}
+
+/* ================= CARD PANEL ================= */
+
+.panel{
+    border:1px solid var(--line);
+    background:linear-gradient(
+        145deg,
+        rgba(17,19,44,.88),
+        rgba(7,9,25,.92)
+    );
+    border-radius:18px;
+    padding:25px;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.35),
+        inset 0 0 50px rgba(105,67,255,.025);
+    position:relative;
+    overflow:hidden;
+}
+
+.panel:before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:200px;
+    top:-150px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(124,74,255,.18);
+    filter:blur(80px);
+    pointer-events:none;
+}
+
+.instruction{
+    max-width:720px;
+    margin:auto;
+    text-align:center;
+    border:1px solid rgba(226,194,117,.35);
+    border-radius:10px;
+    padding:15px;
+    color:#bcb8cd;
+    position:relative;
+}
+
+.instruction strong{
+    display:block;
+    color:var(--gold2);
+    margin-bottom:5px;
+}
+
+.questionRow{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.topic{
+    border:1px solid #302b4b;
+    background:#0b0d20;
+    color:#a6a2ba;
+    padding:8px 17px;
+    border-radius:30px;
+    font-family:inherit;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.topic:hover,
+.topic.active{
+    color:#fff;
+    border-color:#8456db;
+    background:rgba(105,55,193,.25);
+}
+
+/* ================= FAN ================= */
+
+.selectTitle{
+    text-align:center;
+    color:#d8c9f7;
+    margin:22px 0 5px;
+    font-size:21px;
+}
+
+.selectHint{
+    text-align:center;
+    color:#77748e;
+    font-size:13px;
+}
+
+.fan{
+    height:360px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    margin:0 auto;
+    max-width:1000px;
+    overflow:hidden;
+    padding-bottom:35px;
+}
+
+.fanCard{
+    width:92px;
+    height:158px;
+    position:absolute;
+    bottom:25px;
+    transform-origin:50% 115%;
+    cursor:pointer;
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        filter .3s,
+        z-index 0s;
+    perspective:900px;
+}
+
+.fanCard:hover{
+    filter:brightness(1.3);
+    z-index:90!important;
+}
+
+.cardBack{
+    width:100%;
+    height:100%;
+    border-radius:12px;
+    border:2px solid #d8af5b;
+    background:
+        radial-gradient(circle at center,
+            rgba(226,190,91,.3) 0 2px,
+            transparent 3px),
+        repeating-radial-gradient(
+            circle at center,
+            transparent 0 8px,
+            rgba(221,180,80,.13) 9px 10px
+        ),
+        linear-gradient(145deg,#171538,#0c0d26);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.5),
+        inset 0 0 20px rgba(117,70,255,.2);
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+}
+
+.cardBack:after{
+    content:"☾";
+    color:#e7c66f;
+    font-size:32px;
+    text-shadow:0 0 15px #e7c66f;
+}
+
+.fanCard.selected{
+    filter:
+        drop-shadow(0 0 12px #a761ff)
+        drop-shadow(0 0 28px rgba(112,68,255,.7));
+}
+
+.fanCard.selected .cardBack{
+    border-color:#fff0b1;
+}
+
+/* ================= SELECTED AREA ================= */
+
+.selectedArea{
+    border-top:1px solid var(--line);
+    padding-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.slot{
+    width:160px;
+    min-height:210px;
+    border:1px dashed #3a3556;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    color:#625e79;
+    position:relative;
+    overflow:hidden;
+}
+
+.slotLabel{
+    position:absolute;
+    top:8px;
+    left:10px;
+    font-size:11px;
+    color:#7c7796;
+}
+
+.selectedCardMini{
+    width:105px;
+    border-radius:8px;
+    box-shadow:0 0 25px rgba(121,72,255,.4);
+    animation:selectedIn .5s ease;
+}
+
+@keyframes selectedIn{
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ================= ACTIONS ================= */
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.primary{
+    border:0;
+    color:#fff;
+    background:linear-gradient(100deg,#6731b9,#9b4fff);
+    padding:12px 28px;
+    border-radius:30px;
+    font-family:inherit;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(120,55,230,.25);
+}
+
+.secondary{
+    border:1px solid #38324f;
+    background:#0c0e20;
+    color:#aaa5bc;
+    padding:12px 22px;
+    border-radius:30px;
+    font-family:inherit;
+    cursor:pointer;
+}
+
+/* ================= READING ================= */
+
+.reading{
+    margin-top:22px;
+    display:none;
+}
+
+.reading.show{
+    display:block;
+    animation:readingIn .7s ease;
+}
+
+@keyframes readingIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.readingTitle{
+    text-align:center;
+    color:var(--gold2);
+    font-family:'Playfair Display',serif;
+    font-size:27px;
+    margin-bottom:20px;
+}
+
+.readCards{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.openCard{
+    width:180px;
+    text-align:center;
+}
+
+.openCard img{
+    width:155px;
+    border-radius:10px;
+    border:2px solid #b78b44;
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
+    animation:cardReveal .8s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes cardReveal{
+    from{
+        opacity:0;
+        transform:rotateY(90deg) translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:rotateY(0);
+    }
+}
+
+.position{
+    color:#bda7e8;
+    font-size:12px;
+    margin-top:9px;
+}
+
+.cardName{
+    color:#fff;
+    font-family:'Playfair Display',serif;
+    font-size:17px;
+}
+
+/* ================= DETAILS ================= */
+
+.detail{
+    display:grid;
+    grid-template-columns:270px 1fr;
+    gap:22px;
+    margin-top:20px;
+}
+
+.detailCard{
+    background:rgba(16,17,38,.8);
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:20px;
+}
+
+.detailCard img{
+    width:100%;
+    max-width:220px;
+    display:block;
+    margin:auto;
+    border-radius:9px;
+    border:1px solid #caa760;
+}
+
+.detailMain h2{
+    font-family:'Playfair Display',serif;
+    color:#f3d997;
+    margin-bottom:3px;
+}
+
+.badge{
+    display:inline-block;
+    background:rgba(131,72,255,.2);
+    color:#bd9cff;
+    border:1px solid #593a88;
+    border-radius:20px;
+    padding:4px 10px;
+    font-size:11px;
+    margin-bottom:15px;
+}
+
+.detailMain p{
+    color:#b4b0c4;
+    line-height:1.85;
+    margin-bottom:15px;
+}
+
+.sectionTitle{
+    color:#d8bdff;
+    font-size:17px;
+    margin:20px 0 7px;
+}
+
+.detailGrid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.infoBox{
+    background:#0b0d20;
+    border:1px solid #292640;
+    border-radius:12px;
+    padding:15px;
+}
+
+.infoBox b{
+    display:block;
+    color:#e2c46e;
+    margin-bottom:5px;
+}
+
+.infoBox span{
+    color:#a9a5b8;
+    line-height:1.7;
+    font-size:13px;
+}
+
+.questionBox{
+    margin-top:15px;
+    border-left:3px solid #9d64ff;
+    background:rgba(124,70,255,.06);
+    padding:15px;
+    color:#bcb7cd;
+    line-height:1.8;
+}
+
+/* ================= DECK ================= */
+
+.deckSection{
+    margin-top:25px;
+}
+
+.deckHeader{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.deckHeader h2{
+    font-family:'Playfair Display',serif;
+    color:#e3c987;
+}
+
+.filterBtns{
+    display:flex;
+    gap:5px;
+}
+
+.filterBtns button{
+    border:1px solid #35304b;
+    background:#0c0e20;
+    color:#9995aa;
+    border-radius:20px;
+    padding:6px 11px;
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.filterBtns button.active{
+    background:#4e267d;
+    color:#fff;
+}
+
+.deckGrid{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:10px 5px 20px;
+    scrollbar-color:#51347a transparent;
+}
+
+.deckItem{
+    flex:0 0 90px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.deckItem:hover{
+    transform:translateY(-8px);
+}
+
+.deckItem img{
+    width:90px;
+    border-radius:7px;
+    border:1px solid #9d7a45;
+    display:block;
+}
+
+.deckItem span{
+    display:block;
+    text-align:center;
+    font-size:10px;
+    color:#89859d;
+    margin-top:5px;
+}
+
+/* ================= MOBILE ================= */
+
+.mobileMenu{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .mobileMenu{
+        display:block;
+        position:fixed;
+        top:12px;
+        left:12px;
+        z-index:200;
+        border:1px solid #42365d;
+        background:#0c0d20;
+        color:white;
+        border-radius:10px;
+        padding:9px 12px;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .fan{
+        height:300px;
+    }
+
+    .fanCard{
+        width:62px;
+        height:112px;
+    }
+
+    .detail{
+        grid-template-columns:1fr;
+    }
+
+    .detailCard{
+        text-align:center;
+    }
+
+    .detailCard img{
+        max-width:180px;
+    }
+}
+
+@media(max-width:550px){
+
+    .content{
+        padding:15px 10px 50px;
+    }
+
+    .panel{
+        padding:14px;
+    }
+
+    .title h1{
+        font-size:29px;
+    }
+
+    .fan{
+        height:245px;
+        margin-left:-10px;
+        margin-right:-10px;
+    }
+
+    .fanCard{
+        width:48px;
+        height:88px;
+    }
+
+    .fanCard:nth-child(n+17){
+        display:none;
+    }
+
+    .detailGrid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        padding-right:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="stars2"></div>
+
+<button class="mobileMenu" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brandIcon">✦</div>
+
+        <div class="brandText">
+            <b>ASTRA TAROT</b>
+            <span>เปิดไพ่ให้คำถามจากจักรวาล</span>
+        </div>
+
+    </div>
+
+    <nav class="menu">
+
+        <button class="active" onclick="goTop()">
+            <span class="menuIcon">⌂</span>
+            หน้าแรก
+        </button>
+
+        <button class="active">
+            <span class="menuIcon">♧</span>
+            ไพ่ทาโรต์
+        </button>
+
+        <button onclick="alert('โหมดดูลายมือจะเพิ่มในส่วนถัดไป')">
+            <span class="menuIcon">☝</span>
+            ดูลายมือ
+        </button>
+
+        <button onclick="dailyCard()">
+            <span class="menuIcon">✧</span>
+            ไพ่ประจำวัน
+        </button>
+
+        <button onclick="showDeck()">
+            <span class="menuIcon">▤</span>
+            ความหมายไพ่
+        </button>
+
+        <button>
+            <span class="menuIcon">♙</span>
+            เกี่ยวกับเรา
+        </button>
+
+    </nav>
+
+    <div class="divider"></div>
+
+    <div class="spreadOptions">
+        เลือกการเปิดไพ่
+    </div>
+
+    <button class="menu button spreadBtn active" onclick="setSpread(1,this)">
+        <strong>○ 1 ใบ</strong>
+        <small>คำตอบของวันนี้</small>
+    </button>
+
+    <button class="menu button spreadBtn" onclick="setSpread(3,this)">
+        <strong>◉ 3 ใบ</strong>
+        <small>อดีต • ปัจจุบัน • แนวโน้ม</small>
+    </button>
+
+    <button class="menu button spreadBtn" onclick="setSpread(5,this)">
+        <strong>○ 5 ใบ</strong>
+        <small>เจาะลึกสถานการณ์</small>
+    </button>
+
+    <button class="menu button spreadBtn" onclick="setSpread(10,this)">
+        <strong>○ 10 ใบ</strong>
+        <small>Celtic Cross</small>
+    </button>
+
+</aside>
+
+
+<main class="main">
+
+    <div class="topbar">
+        <button class="topBtn" onclick="showHistory()">💎 ประวัติการดูดวง</button>
+        <button class="topBtn">☾</button>
+        <button class="topBtn" onclick="toggleSound()">🔊</button>
+    </div>
+
+    <div class="content">
+
+        <div class="title">
+            <h1>ไพ่ทาโรต์</h1>
+            <p>เลือกไพ่ด้วยหัวใจของคุณเอง</p>
+        </div>
+
+        <section class="panel">
+
+            <div class="instruction">
+
+                <strong>วิธีการเปิดไพ่</strong>
+
+                ตั้งสมาธิ ตั้งคำถามในใจ
+                แล้วเลือกไพ่ที่คุณรู้สึกว่า “ดึงดูด” มากที่สุด
+
+            </div>
+
+            <!-- TOPIC -->
+
+            <div class="questionRow">
+
+                <button class="topic active" onclick="setTopic('ความรัก',this)">
+                    ♡ ความรัก
+                </button>
+
+                <button class="topic" onclick="setTopic('การงาน',this)">
+                    ⚒ การงาน
+                </button>
+
+                <button class="topic" onclick="setTopic('การเงิน',this)">
+                    ◉ การเงิน
+                </button>
+
+                <button class="topic" onclick="setTopic('การเรียน',this)">
+                    ▤ การเรียน
+                </button>
+
+                <button class="topic" onclick="setTopic('สุขภาพ',this)">
+                    ♧ สุขภาพ
+                </button>
+
+                <button class="topic" onclick="setTopic('ชีวิตโดยรวม',this)">
+                    ◇ ชีวิตโดยรวม
+                </button>
+
+            </div>
+
+
+            <div class="selectTitle">
+                เลือกไพ่ใบที่ <span id="currentNumber">1</span>
+            </div>
+
+            <div class="selectHint">
+                คลิกเลือกไพ่ที่คุณรู้สึกเชื่อมโยง
+            </div>
+
+
+            <!-- FAN -->
+
+            <div class="fan" id="fan"></div>
+
+
+            <!-- SELECTED -->
+
+            <div class="selectedArea" id="selectedArea"></div>
+
+
+            <div class="actions">
+
+                <button class="primary" onclick="openReading()">
+                    👁 ดูหน้าไพ่
+                </button>
+
+                <button class="secondary" onclick="resetReading()">
+                    ↻ เริ่มใหม่
+                </button>
+
+            </div>
+
+
+            <!-- READING -->
+
+            <div class="reading" id="reading">
+
+                <div class="readingTitle">
+                    คำทำนายและการตีความ
+                </div>
+
+                <div class="readCards" id="readCards"></div>
+
+                <div id="details"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DECK -->
+
+        <section class="panel deckSection" id="deckSection">
+
+            <div class="deckHeader">
+
+                <h2>ความหมายไพ่ครบทั้ง 78 ใบ</h2>
+
+                <div class="filterBtns">
+
+                    <button class="active"
+                        onclick="filterDeck('all',this)">
+                        ทั้งหมด
+                    </button>
+
+                    <button onclick="filterDeck('major',this)">
+                        Major
+                    </button>
+
+                    <button onclick="filterDeck('minor',this)">
+                        Minor
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="deckGrid" id="deckGrid"></div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   CARD DATA
+========================================================= */
+
+const major = [
+
+{
+name:"The Fool",
+thai:"คนโง่ / ผู้เริ่มต้น",
+file:"RWS_Tarot_00_Fool.jpg",
+keywords:"การเริ่มต้น • อิสระ • การทดลอง",
+meaning:"ไพ่ของการเริ่มต้นสิ่งที่ยังไม่รู้ผลลัพธ์ทั้งหมด คุณอาจอยู่ตรงจุดที่ต้องตัดสินใจว่าจะเดินออกจากพื้นที่ปลอดภัยหรืออยู่กับสิ่งเดิมต่อไป ไพ่ไม่ได้รับประกันว่าทางใหม่จะง่าย แต่สะท้อนความพร้อมที่จะเรียนรู้จากประสบการณ์จริง",
+psych:"ในมุมจิตวิทยา ไพ่ใบนี้เกี่ยวข้องกับ openness to experience หรือความเปิดกว้างต่อประสบการณ์ใหม่ คนเรามักต้องการข้อมูลครบ 100% ก่อนเริ่ม แต่ในชีวิตจริงข้อมูลบางอย่างจะเกิดขึ้นหลังจากเราเริ่มลงมือ",
+love:"ความสัมพันธ์อาจต้องการความสดใหม่ การเปิดใจ หรือการพูดคุยอย่างตรงไปตรงมา ระวังการตีความความตื่นเต้นว่าเป็นความเข้ากันได้เสมอไป",
+work:"เหมาะกับการทดลองวิธีใหม่ เริ่มโปรเจกต์ หรือเรียนรู้ทักษะใหม่ แต่ควรแยก 'ความกล้า' ออกจาก 'ความประมาท'",
+money:"อย่าให้ความตื่นเต้นนำหน้าข้อมูล ตรวจสอบความเสี่ยงก่อนตัดสินใจเรื่องเงิน",
+reverse:"เมื่อกลับหัว อาจสะท้อนความรีบ ความกลัวที่จะเริ่ม หรือการกระโดดเข้าสถานการณ์โดยยังไม่ดูผลกระทบ",
+advice:"อย่าถามเพียงว่า 'มันจะสำเร็จไหม' ลองถามว่า 'ถ้าฉันเริ่ม ฉันจะเรียนรู้อะไรจากมันได้บ้าง?'"
+},
+
+{
+name:"The Magician",
+thai:"นักมายากล",
+file:"RWS_Tarot_01_Magician.jpg",
+keywords:"ความสามารถ • การลงมือ • ทรัพยากร",
+meaning:"คุณอาจมีเครื่องมือที่จำเป็นอยู่แล้ว แต่ยังไม่ได้จัดมันเข้าด้วยกันอย่างมีระบบ ไพ่ใบนี้ไม่ได้บอกว่าคุณเก่งทุกอย่าง แต่บอกว่าคุณสามารถนำสิ่งที่มีอยู่มาใช้ให้เกิดผลได้",
+psych:"เกี่ยวข้องกับ self-efficacy หรือความเชื่อว่าตนเองสามารถลงมือและสร้างผลลัพธ์ได้ ความมั่นใจที่มีประโยชน์ควรมาพร้อมการทดลองและการประเมินผลจริง",
+love:"การสื่อสารมีความสำคัญมาก ถ้าต้องการอะไรควรพูดให้ชัดแทนการรอให้อีกฝ่ายเดา",
+work:"เป็นไพ่ของการลงมือ เริ่มจากทรัพยากรที่มี ไม่จำเป็นต้องรอให้ทุกอย่างสมบูรณ์",
+money:"วางแผน ใช้ทักษะที่มี และตรวจสอบข้อเท็จจริงก่อนสร้างรายได้เพิ่ม",
+reverse:"อาจสะท้อนการใช้ความสามารถผิดทาง การพูดเกินจริง หรือการรู้ว่าทำได้แต่ไม่ลงมือ",
+advice:"ถามตัวเองว่า 'ฉันมีอะไรอยู่ในมือแล้วบ้าง และวันนี้ใช้มันได้อย่างไร?'"
+},
+
+{
+name:"The High Priestess",
+thai:"มหาปุโรหิตหญิง",
+file:"RWS_Tarot_02_High_Priestess.jpg",
+keywords:"สัญชาตญาณ • ความเงียบ • สิ่งที่ยังไม่เปิดเผย",
+meaning:"ไม่ใช่ทุกคำตอบจะต้องได้จากการรีบตัดสินใจ บางสถานการณ์ยังมีข้อมูลที่คุณไม่เห็น ไพ่ชวนให้หยุด ฟังตัวเอง และแยกสัญชาตญาณออกจากความกลัว",
+psych:"ความรู้สึกภายในอาจเกิดจากประสบการณ์ที่สมองสะสมไว้ แต่ก็สามารถถูกอคติและความวิตกกังวลบิดเบือนได้ ดังนั้นควรใช้ความรู้สึกเป็นสมมติฐาน ไม่ใช่หลักฐาน",
+love:"มีเรื่องที่ยังไม่ได้พูดกันหรือไม่? การฟังอาจสำคัญกว่าการพยายามหาคำตอบทันที",
+work:"เก็บข้อมูลเพิ่มเติมก่อนเปิดเผยแผนทั้งหมด",
+money:"หลีกเลี่ยงการตัดสินใจจากความรู้สึกอย่างเดียว",
+reverse:"อาจหมายถึงการเพิกเฉยต่อสัญญาณภายใน หรือคิดมากจนแยกข้อเท็จจริงออกจากความกลัวไม่ได้",
+advice:"ก่อนตัดสินใจ เขียน 'สิ่งที่รู้จริง' และ 'สิ่งที่กำลังเดา' แยกกัน"
+},
+
+{
+name:"The Empress",
+thai:"จักรพรรดินี",
+file:"RWS_Tarot_03_Empress.jpg",
+keywords:"การเติบโต • การดูแล • ความอุดมสมบูรณ์",
+meaning:"สิ่งที่ได้รับการดูแลอย่างต่อเนื่องมีโอกาสเติบโต ไพ่ไม่ได้หมายถึงความสำเร็จแบบฉับพลัน แต่เน้นการสร้างสภาพแวดล้อมที่ทำให้สิ่งดี ๆ เติบโตได้",
+psych:"เชื่อมโยงกับการดูแลตัวเอง ความปลอดภัยทางอารมณ์ และการให้คุณค่ากับกระบวนการ ไม่ใช่เฉพาะผลลัพธ์",
+love:"ความสัมพันธ์ต้องการความใส่ใจสม่ำเสมอมากกว่าคำพูดใหญ่ ๆ เพียงครั้งเดียว",
+work:"เหมาะกับงานสร้างสรรค์ งานที่ต้องบ่มเพาะ และการพัฒนาคน",
+money:"ให้ความสำคัญกับการสร้างฐานที่มั่นคงมากกว่าความเสี่ยงที่หวือหวา",
+reverse:"อาจดูแลคนอื่นมากจนละเลยตัวเอง หรือพยายามควบคุมผลลัพธ์มากเกินไป",
+advice:"ถามตัวเองว่า 'สิ่งไหนในชีวิตที่ฉันอยากให้เติบโต และตอนนี้ฉันกำลังดูแลมันอย่างไร?'"
+},
+
+{
+name:"The Emperor",
+thai:"จักรพรรดิ",
+file:"RWS_Tarot_04_Emperor.jpg",
+keywords:"โครงสร้าง • ความรับผิดชอบ • ขอบเขต",
+meaning:"สถานการณ์บางอย่างไม่ได้ต้องการแรงบันดาลใจเพิ่ม แต่ต้องการระบบที่ชัดเจน ไพ่ใบนี้ชวนให้จัดลำดับความสำคัญ กำหนดขอบเขต และรับผิดชอบสิ่งที่ควบคุมได้",
+psych:"เกี่ยวข้องกับ executive function การวางแผน การยับยั้งแรงกระตุ้น และการจัดระบบ",
+love:"ขอบเขตที่ชัดเจนทำให้ความสัมพันธ์ปลอดภัยขึ้น แต่ต้องระวังการควบคุมอีกฝ่าย",
+work:"เหมาะกับการจัดระบบ งานบริหาร และการกำหนดหน้าที่",
+money:"งบประมาณ กฎ และวินัยจะช่วยลดการตัดสินใจตามอารมณ์",
+reverse:"อาจหมายถึงความแข็งเกินไป ควบคุมทุกอย่าง หรือกลัวเสียอำนาจ",
+advice:"ระบบที่ดีควรช่วยชีวิต ไม่ใช่ทำให้ชีวิตกลายเป็นกรง"
+},
+
+{
+name:"The Hierophant",
+thai:"นักบวช",
+file:"RWS_Tarot_05_Hierophant.jpg",
+keywords:"ความรู้ • ประเพณี • ครู",
+meaning:"คุณอาจได้ประโยชน์จากการเรียนรู้ผ่านระบบ คนที่มีประสบการณ์ หรือวิธีที่ผ่านการทดลองมาแล้ว",
+psych:"มนุษย์เรียนรู้ได้ดีจาก social learning การสังเกตและเลียนแบบคนที่มีประสบการณ์",
+love:"ความสัมพันธ์อาจต้องพูดถึงค่านิยมและสิ่งที่แต่ละคนเชื่อ",
+work:"เหมาะกับการเรียนจาก mentor ครู หรือระบบที่มีมาตรฐาน",
+money:"ใช้หลักการพื้นฐานและข้อมูลที่ตรวจสอบได้",
+reverse:"อาจหมายถึงการทำตามกฎเพียงเพราะทุกคนทำ โดยไม่ถามว่ากฎนั้นเหมาะกับเราหรือไม่",
+advice:"เรียนรู้จากระบบได้ แต่ไม่จำเป็นต้องหยุดคิดด้วยตัวเอง"
+},
+
+{
+name:"The Lovers",
+thai:"คู่รัก",
+file:"RWS_Tarot_06_Lovers.jpg",
+keywords:"ความสัมพันธ์ • คุณค่า • ทางเลือก",
+meaning:"ไพ่ใบนี้ไม่ได้หมายถึงความรักอย่างเดียว แต่เกี่ยวข้องกับการเลือกสิ่งที่สอดคล้องกับคุณค่าของตัวเอง",
+psych:"เมื่อค่านิยมภายในไม่ตรงกับพฤติกรรม คนเรามักเกิด cognitive dissonance หรือความรู้สึกขัดแย้งภายใน",
+love:"ถามว่าความสัมพันธ์นี้ทำให้คุณเป็นตัวเองได้หรือไม่ และทั้งสองฝ่ายสื่อสารความต้องการกันชัดเจนหรือยัง",
+work:"เลือกงานหรือทางที่สอดคล้องกับสิ่งที่สำคัญจริง ๆ",
+money:"อย่าตัดสินใจจากแรงกดดันของคนอื่น",
+reverse:"อาจสะท้อนความไม่ตรงกัน การลังเล หรือการเลือกสิ่งที่ขัดกับคุณค่าของตัวเอง",
+advice:"ถ้าตัดเสียงของคนอื่นออกทั้งหมด คุณจะเลือกอะไร?"
+},
+
+{
+name:"The Chariot",
+thai:"รถศึก",
+file:"RWS_Tarot_07_Chariot.jpg",
+keywords:"แรงผลักดัน • การควบคุม • เป้าหมาย",
+meaning:"ไพ่ของการเคลื่อนที่ไปข้างหน้า แต่หัวใจสำคัญคือการควบคุมทิศทาง ไม่ใช่เพียงความเร็ว",
+psych:"เกี่ยวข้องกับ goal-directed behavior และ self-regulation",
+love:"ความสัมพันธ์ต้องการทิศทางร่วมกัน ไม่ใช่คนหนึ่งลากอีกคนหนึ่งไป",
+work:"ตั้งเป้าหมายให้ชัด แบ่งเป็นขั้น และติดตามความคืบหน้า",
+money:"มีวินัยและกำหนดเป้าหมายการใช้เงิน",
+reverse:"พยายามควบคุมทุกอย่างจนหมดแรง หรือเดินเร็วแต่ไม่รู้ว่าจะไปไหน",
+advice:"ความเร็วไม่มีประโยชน์ถ้าไม่ได้พาไปยังจุดที่ต้องการ"
+},
+
+{
+name:"Strength",
+thai:"พลัง",
+file:"RWS_Tarot_08_Strength.jpg",
+keywords:"ความกล้าภายใน • ความอดทน • การควบคุมอารมณ์",
+meaning:"ความแข็งแรงที่แท้จริงไม่ได้แปลว่าต้องชนะทุกครั้ง แต่อาจหมายถึงการควบคุมการตอบสนองของตัวเองได้",
+psych:"เกี่ยวข้องกับ emotional regulation และ distress tolerance",
+love:"ความอ่อนโยนและการฟังอาจมีพลังมากกว่าการพยายามชนะการโต้เถียง",
+work:"อดทนกับกระบวนการและจัดการแรงกดดันทีละขั้น",
+money:"อย่าปล่อยให้อารมณ์ชั่วขณะกำหนดการใช้เงิน",
+reverse:"ความมั่นใจลดลง หรือกดอารมณ์มากจนระเบิดภายหลัง",
+advice:"คุณไม่จำเป็นต้องควบคุมทุกอย่าง แค่ควบคุมสิ่งที่คุณตอบสนองได้"
+},
+
+{
+name:"The Hermit",
+thai:"ฤๅษี",
+file:"RWS_Tarot_09_Hermit.jpg",
+keywords:"การทบทวน • ความเงียบ • ปัญญา",
+meaning:"บางครั้งการถอยออกมาชั่วคราวช่วยให้เห็นภาพรวมมากกว่าการถามคนรอบตัวทุกคน",
+psych:"เกี่ยวข้องกับ self-reflection และ metacognition",
+love:"อาจต้องการพื้นที่ส่วนตัวเพื่อเข้าใจความรู้สึก",
+work:"ใช้เวลา review สิ่งที่ทำและหาว่าอะไรควรปรับ",
+money:"ทบทวนรูปแบบการใช้จ่าย",
+reverse:"เก็บตัวมากเกินไป หรือคิดวนโดยไม่ลงมือ",
+advice:"การอยู่คนเดียวควรนำไปสู่ความเข้าใจ ไม่ใช่การแยกตัวออกจากทุกคน"
+},
+
+{
+name:"Wheel of Fortune",
+thai:"กงล้อแห่งโชค",
+file:"RWS_Tarot_10_Wheel_of_Fortune.jpg",
+keywords:"การเปลี่ยนแปลง • วัฏจักร • จังหวะ",
+meaning:"ชีวิตมีปัจจัยจำนวนมากที่เราไม่สามารถควบคุมได้ ไพ่จึงชวนให้เตรียมตัวรับความเปลี่ยนแปลงแทนการพยายามควบคุมทุกอย่าง",
+psych:"แนวคิดเรื่อง locus of control ช่วยแยกสิ่งที่ควบคุมได้และควบคุมไม่ได้",
+love:"สถานการณ์อาจเปลี่ยน แต่สิ่งสำคัญคือการปรับตัวร่วมกัน",
+work:"เตรียมแผนสำรองและอย่ายึดติดกับวิธีเดียว",
+money:"หลีกเลี่ยงการคิดว่าโชคจะช่วยแก้ปัญหาทางการเงิน",
+reverse:"อาจรู้สึกติดอยู่ในวงจรเดิม",
+advice:"วันนี้คุณควบคุมอะไรได้หนึ่งอย่าง?"
+},
+
+{
+name:"Justice",
+thai:"ความยุติธรรม",
+file:"RWS_Tarot_11_Justice.jpg",
+keywords:"ข้อเท็จจริง • ความรับผิดชอบ • สมดุล",
+meaning:"ไพ่ชวนมองข้อมูลอย่างตรงไปตรงมาและยอมรับผลของการตัดสินใจ",
+psych:"เกี่ยวข้องกับการลดอคติและการพิจารณาหลักฐานก่อนสรุป",
+love:"ความสัมพันธ์ต้องมีความยุติธรรมและความรับผิดชอบทั้งสองฝ่าย",
+work:"ตัดสินใจด้วยข้อมูล ไม่ใช่ข่าวลือ",
+money:"ตรวจตัวเลข เอกสาร และเงื่อนไขให้ละเอียด",
+reverse:"อาจมองข้อมูลเข้าข้างตัวเอง หรือหลีกเลี่ยงความรับผิดชอบ",
+advice:"ถ้าเรื่องนี้เกิดกับเพื่อนของคุณ คุณจะมองสถานการณ์เหมือนเดิมหรือไม่?"
+},
+
+{
+name:"The Hanged Man",
+thai:"ชายแขวนคอ",
+file:"RWS_Tarot_12_Hanged_Man.jpg",
+keywords:"หยุด • เปลี่ยนมุมมอง • ยอมปล่อย",
+meaning:"บางครั้งการหยุดไม่ได้หมายถึงล้มเหลว แต่เป็นการหยุดเพื่อดูสถานการณ์จากมุมที่แตกต่าง",
+psych:"เกี่ยวข้องกับ cognitive reframing",
+love:"ลองมองเหตุการณ์จากมุมของอีกฝ่ายก่อนสรุป",
+work:"ถ้าทางเดิมไม่เวิร์ก อาจต้องเปลี่ยนวิธี ไม่ใช่เพิ่มแรงอย่างเดียว",
+money:"หยุดการตัดสินใจชั่วคราวเมื่อข้อมูลยังไม่พอ",
+reverse:"ติดอยู่กับการรอโดยไม่มีแผน",
+advice:"มีมุมไหนที่คุณยังไม่เคยมอง?"
+},
+
+{
+name:"Death",
+thai:"ความตาย",
+file:"RWS_Tarot_13_Death.jpg",
+keywords:"การสิ้นสุด • การเปลี่ยนผ่าน • การเริ่มใหม่",
+meaning:"ไพ่ไม่ได้หมายถึงความตายจริง ๆ แต่เป็นสัญลักษณ์ของการสิ้นสุดวงจรเดิมเพื่อเปิดพื้นที่ให้สิ่งใหม่",
+psych:"การเปลี่ยนพฤติกรรมมักต้องยอมรับว่ารูปแบบเดิมไม่ตอบโจทย์แล้ว",
+love:"ความสัมพันธ์หรือรูปแบบการสัมพันธ์บางอย่างอาจต้องเปลี่ยน",
+work:"อาจเป็นช่วงเปลี่ยนบทบาทหรือวิธีทำงาน",
+money:"ตัดนิสัยทางการเงินที่ไม่เหมาะสม",
+reverse:"ยึดติดกับสิ่งเดิมเพราะกลัวความไม่แน่นอน",
+advice:"สิ่งไหนในชีวิตที่หมดหน้าที่ของมันแล้ว?"
+},
+
+{
+name:"Temperance",
+thai:"ความพอดี",
+file:"RWS_Tarot_14_Temperance.jpg",
+keywords:"สมดุล • การปรับ • ความพอดี",
+meaning:"ไม่จำเป็นต้องเลือกสุดขั้วเสมอไป การปรับทีละน้อยอาจให้ผลยั่งยืนกว่า",
+psych:"เกี่ยวข้องกับ behavioral adjustment และการสร้างนิสัย",
+love:"ประนีประนอมโดยไม่ทิ้งขอบเขตของตัวเอง",
+work:"จัดสมดุลระหว่างความเร็วและคุณภาพ",
+money:"วางระบบใช้จ่ายแบบพอดี",
+reverse:"ชีวิตเสียสมดุลเพราะทำอะไรสุดโต่งเกินไป",
+advice:"คุณกำลังใช้พลังกับเรื่องไหนมากเกินความจำเป็น?"
+},
+
+{
+name:"The Devil",
+thai:"ปีศาจ",
+file:"RWS_Tarot_15_Devil.jpg",
+keywords:"พันธนาการ • ความอยาก • รูปแบบซ้ำ",
+meaning:"ไพ่ชวนสำรวจสิ่งที่เรารู้ว่าไม่ดีต่อเราแต่ยังกลับไปทำซ้ำ",
+psych:"เกี่ยวข้องกับ habit loop และ reward system",
+love:"ระวังความสัมพันธ์ที่ทำให้รู้สึกว่าตัวเองไม่มีทางเลือก",
+work:"ระวังวงจรความเครียดและการทำงานเกินขอบเขต",
+money:"ระวังการใช้เงินเพื่อชดเชยอารมณ์",
+reverse:"เริ่มมองเห็นวงจรที่ทำให้ตัวเองติดอยู่",
+advice:"อะไรคือสิ่งที่คุณบอกตัวเองว่า 'หยุดไม่ได้' ทั้งที่จริง ๆ ยังมีทางเลือก?"
+},
+
+{
+name:"The Tower",
+thai:"หอคอย",
+file:"RWS_Tarot_16_Tower.jpg",
+keywords:"การสั่นคลอน • ความจริง • การเปลี่ยนแปลงฉับพลัน",
+meaning:"บางครั้งความเชื่อหรือแผนที่เราคิดว่าแข็งแรงอาจต้องปรับเมื่อข้อมูลใหม่เข้ามา",
+psych:"เกี่ยวข้องกับ belief revision",
+love:"ความจริงที่ถูกเปิดเผยอาจทำให้ต้องปรับความเข้าใจ",
+work:"แผนสำรองสำคัญเมื่อสถานการณ์ไม่เป็นไปตามคาด",
+money:"หลีกเลี่ยงความเสี่ยงที่ไม่มีแผนรับมือ",
+reverse:"พยายามรักษาสิ่งเดิมแม้รู้ว่ามันไม่มั่นคง",
+advice:"ถ้าสิ่งที่คุณเชื่ออยู่ตอนนี้ผิด คุณอยากรู้อะไรเป็นอย่างแรก?"
+},
+
+{
+name:"The Star",
+thai:"ดวงดาว",
+file:"RWS_Tarot_17_Star.jpg",
+keywords:"ความหวัง • การฟื้นตัว • วิสัยทัศน์",
+meaning:"ไพ่ของการมีทิศทางที่ทำให้รู้สึกว่าชีวิตยังมีพื้นที่ให้เติบโต",
+psych:"เป้าหมายที่มีความหมายสามารถช่วยเพิ่ม motivation",
+love:"ความจริงใจและความหวังช่วยให้ความสัมพันธ์ฟื้นตัวได้",
+work:"กำหนดภาพที่อยากเห็นในระยะยาว",
+money:"สร้างเป้าหมายระยะยาวแทนการมองเพียงผลเร็ว",
+reverse:"ความหวังลดลงหรือคาดหวังสูงจนผิดหวังง่าย",
+advice:"ชีวิตในแบบที่คุณอยากเห็นจริง ๆ หน้าตาเป็นอย่างไร?"
+},
+
+{
+name:"The Moon",
+thai:"พระจันทร์",
+file:"RWS_Tarot_18_Moon.jpg",
+keywords:"ความไม่แน่นอน • ความกลัว • จินตนาการ",
+meaning:"สิ่งที่เรารู้สึกว่าเป็นความจริงอาจยังเป็นเพียงการตีความ ไพ่จึงชวนตรวจสอบข้อมูล",
+psych:"ความวิตกกังวลสามารถทำให้สมองประเมินภัยคุกคามสูงเกินจริง",
+love:"อย่าด่วนสรุปจากการอ่านข้อความหรือพฤติกรรมเพียงครั้งเดียว",
+work:"ตรวจสอบข้อมูลก่อนเชื่อข่าว",
+money:"ระวังการตัดสินใจจากความกลัว",
+reverse:"เริ่มเห็นความจริงชัดขึ้น",
+advice:"หลักฐานที่สนับสนุนความคิดนี้คืออะไร และหลักฐานที่ไม่สนับสนุนคืออะไร?"
+},
+
+{
+name:"The Sun",
+thai:"ดวงอาทิตย์",
+file:"RWS_Tarot_19_Sun.jpg",
+keywords:"ความชัดเจน • พลังบวก • การเปิดเผย",
+meaning:"สิ่งต่าง ๆ มีแนวโน้มชัดเจนขึ้นเมื่อเราหยุดซ่อนปัญหาและมองมันตรง ๆ",
+psych:"การมองสถานการณ์อย่างสมดุลช่วยลดการตีความแบบสุดโต่ง",
+love:"ความสัมพันธ์ที่ดีต้องสามารถพูดกันตรง ๆ",
+work:"ความโปร่งใสและเป้าหมายชัดเจนช่วยให้ทีมทำงานง่าย",
+money:"ตรวจตัวเลขจริงและอย่ากลัวที่จะเห็นความจริง",
+reverse:"มีเรื่องดีอยู่แต่คุณอาจมองข้ามเพราะคาดหวังมากเกินไป",
+advice:"วันนี้มีเรื่องดีอะไรที่คุณยังไม่ได้ให้คุณค่ากับมัน?"
+},
+
+{
+name:"Judgement",
+thai:"การตื่นรู้",
+file:"RWS_Tarot_20_Judgement.jpg",
+keywords:"ทบทวน • ตระหนักรู้ • การตัดสินใจใหม่",
+meaning:"ประสบการณ์ในอดีตไม่ได้มีไว้เพื่อลงโทษเรา แต่สามารถกลายเป็นข้อมูลสำหรับการตัดสินใจครั้งใหม่",
+psych:"เกี่ยวข้องกับ self-reflection และการเรียนรู้จากประสบการณ์",
+love:"ทบทวนรูปแบบความสัมพันธ์เดิมก่อนสร้างรูปแบบใหม่",
+work:"ดูสิ่งที่เคยทำแล้วถามว่าครั้งนี้จะทำต่างออกไปอย่างไร",
+money:"เรียนรู้จากข้อผิดพลาดทางการเงิน",
+reverse:"ติดอยู่กับความรู้สึกผิดหรือการตัดสินตัวเอง",
+advice:"ถ้าคุณให้อภัยตัวเองได้หนึ่งเรื่อง คุณจะเลือกเรื่องอะไร?"
+},
+
+{
+name:"The World",
+thai:"โลก",
+file:"RWS_Tarot_21_World.jpg",
+keywords:"บทสรุป • ความสมบูรณ์ • วงจรใหม่",
+meaning:"สิ่งหนึ่งกำลังเข้าใกล้บทสรุป คุณสามารถมองย้อนกลับไปและเห็นว่าตัวเองเดินทางมาไกลแค่ไหน",
+psych:"การรับรู้ความก้าวหน้าช่วยสร้าง self-efficacy",
+love:"ความสัมพันธ์อาจกำลังเข้าสู่ช่วงที่ชัดเจนขึ้น",
+work:"ปิดงานให้สมบูรณ์ก่อนเปิดโปรเจกต์ใหม่",
+money:"ทบทวนเป้าหมายที่ทำสำเร็จแล้ว",
+reverse:"ยังมีเรื่องเล็ก ๆ ที่ยังไม่ปิดให้เรียบร้อย",
+advice:"คุณกำลังมองข้ามความสำเร็จอะไรของตัวเอง?"
+}
+
+];
+
+
+/* =========================================================
+   MINOR ARCANA
+========================================================= */
+
+const suits = {
+
+Wands:{
+thai:"ไม้เท้า",
+symbol:"🔥",
+theme:"พลัง • ความคิดสร้างสรรค์ • การลงมือ",
+meaning:"ไพ่ไม้เท้าเกี่ยวข้องกับพลังในการลงมือ ความทะเยอทะยาน ความคิดสร้างสรรค์ และแรงผลักดัน",
+love:"ในความรักมักสะท้อนแรงดึงดูด ความตื่นเต้น และความต้องการให้ความสัมพันธ์เดินหน้า",
+work:"เกี่ยวข้องกับแรงบันดาลใจ โปรเจกต์ และการลงมือทำ",
+money:"เกี่ยวข้องกับการหาโอกาสและการสร้างสิ่งใหม่ แต่ต้องประเมินความเสี่ยง",
+psych:"สะท้อน motivation และระดับพลังที่ใช้กับเป้าหมาย"
+},
+
+Cups:{
+thai:"ถ้วย",
+symbol:"💧",
+theme:"อารมณ์ • ความสัมพันธ์ • ความรู้สึก",
+meaning:"ไพ่ถ้วยเน้นโลกด้านอารมณ์ ความสัมพันธ์ ความผูกพัน และสิ่งที่ทำให้เรารู้สึกมีความหมาย",
+love:"เหมาะกับการอ่านเรื่องความรู้สึก ความสัมพันธ์ และการสื่อสารทางอารมณ์",
+work:"สะท้อนความพึงพอใจและความสัมพันธ์กับผู้คนในที่ทำงาน",
+money:"เตือนว่าอารมณ์อาจมีผลต่อการตัดสินใจเรื่องเงิน",
+psych:"เกี่ยวข้องกับ emotional awareness และความสามารถในการรับรู้ความรู้สึก"
+},
+
+Swords:{
+thai:"ดาบ",
+symbol:"⚔️",
+theme:"ความคิด • การตัดสินใจ • ความขัดแย้ง",
+meaning:"ไพ่ดาบเกี่ยวข้องกับความคิด เหตุผล การสื่อสาร การตัดสินใจ และความขัดแย้ง",
+love:"ต้องระวังคำพูดและการตีความ เพราะความคิดที่ไม่ได้พูดอาจกลายเป็นปัญหา",
+work:"เหมาะกับการวิเคราะห์ข้อมูลและการแก้ปัญหา",
+money:"ใช้ข้อมูลและตัวเลขมากกว่าอารมณ์",
+psych:"เกี่ยวข้องกับ cognitive patterns และการตีความสถานการณ์"
+},
+
+Pentacles:{
+thai:"เหรียญ",
+symbol:"🪙",
+theme:"ความมั่นคง • ทรัพยากร • โลกจริง",
+meaning:"ไพ่เหรียญเกี่ยวข้องกับเงิน งาน สุขภาพ เวลา ทรัพยากร และสิ่งที่ต้องสร้างอย่างต่อเนื่อง",
+love:"สะท้อนความมั่นคง การดูแลกัน และการแสดงความรักผ่านการกระทำ",
+work:"เกี่ยวข้องกับทักษะ ผลงาน และความก้าวหน้าที่จับต้องได้",
+money:"เป็น suit ที่เกี่ยวข้องกับการเงินโดยตรง แต่ยังต้องดูข้อมูลจริง",
+psych:"สะท้อนความสัมพันธ์ระหว่างความมั่นคงภายนอกและความรู้สึกปลอดภัยภายใน"
+}
+
+};
+
+const ranks = [
+["Ace","หนึ่ง","การเริ่มต้น"],
+["Two","สอง","ทางเลือกและการปรับสมดุล"],
+["Three","สาม","การเติบโตและการร่วมมือ"],
+["Four","สี่","ความมั่นคง"],
+["Five","ห้า","ความท้าทาย"],
+["Six","หก","การเปลี่ยนผ่าน"],
+["Seven","เจ็ด","การประเมินและการยืนหยัด"],
+["Eight","แปด","การเคลื่อนไหว"],
+["Nine","เก้า","ความพยายามและความอดทน"],
+["Ten","สิบ","บทสรุป"],
+["Page","เด็กหนุ่ม/ผู้เรียน","การเรียนรู้"],
+["Knight","อัศวิน","การลงมือ"],
+["Queen","ราชินี","ความเข้าใจและการจัดการภายใน"],
+["King","ราชา","ความรับผิดชอบและความเป็นผู้นำ"]
+];
+
+const minor=[];
+
+for(const suitName in suits){
+
+    const suit=suits[suitName];
+
+    ranks.forEach((rank,i)=>{
+
+        let name=rank[0]+" of "+suitName;
+
+        let fileSuit={
+            Wands:"Wands",
+            Cups:"Cups",
+            Swords:"Swords",
+            Pentacles:"Pentacles"
+        }[suitName];
+
+        let num=String(i+1).padStart(2,"0");
+
+        minor.push({
+
+            name,
+            thai:`${rank[1]} ${suit.thai}`,
+            file:`${fileSuit}${num}.jpg`,
+
+            keywords:`${rank[2]} • ${suit.theme}`,
+
+            meaning:
+            `ไพ่ ${name} เป็นการผสมระหว่างพลังของ "${rank[2]}" กับธีมของ ${suit.thai} ซึ่งเกี่ยวข้องกับ ${suit.theme} โดยรวม ไพ่ใบนี้ไม่ได้บอกว่าเหตุการณ์จะเกิดขึ้นแน่นอน แต่สามารถใช้เป็นกรอบคำถามเพื่อสำรวจสถานการณ์ปัจจุบันได้`,
+
+            psych:
+            `${suit.psych} ระดับของพลังด้านนี้อาจเปลี่ยนไปตามบริบท ดังนั้นลองมองว่าไพ่กำลังสะท้อนพฤติกรรม ความคิด หรืออารมณ์แบบใดในชีวิตจริงของคุณ`,
+
+            love:
+            `${suit.love} ลองสังเกตว่าคุณกำลังสื่อสารความต้องการของตัวเองอย่างชัดเจนหรือกำลังคาดหวังให้อีกฝ่ายเข้าใจโดยไม่พูด`,
+
+            work:
+            `${suit.work} ให้ความสำคัญกับสิ่งที่ควบคุมได้และแบ่งเป้าหมายออกเป็นขั้นเล็ก ๆ`,
+
+            money:
+            `${suit.money} หากเกี่ยวข้องกับเงิน ให้ตรวจสอบตัวเลขจริง เงื่อนไข และความเสี่ยงก่อนตัดสินใจ`,
+
+            reverse:
+            `เมื่อกลับหัว ธีมของไพ่ใบนี้อาจสะท้อนพลังที่ติดขัด มากเกินไป หรือนำไปใช้ผิดบริบท เช่น ${rank[2]} ที่เกิดขึ้นโดยไม่มีสมดุลกับ ${suit.theme}`,
+
+            advice:
+            `ถามตัวเองว่า "${rank[2]} ในชีวิตของฉันกำลังเกิดขึ้นตรงไหน และฉันต้องการปรับอะไรเพียงหนึ่งอย่างในตอนนี้?"`
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const allCards=[...major,...minor];
+
+let spreadCount=1;
+let selected=[];
+let topic="ความรัก";
+let soundOn=false;
+
+
+/* =========================================================
+   IMAGE URL
+========================================================= */
+
+function imageUrl(card){
+
+    /*
+       ภาพ Rider-Waite-Smith จาก Wikimedia Commons
+       ชุด Major ใช้ชื่อ RWS_Tarot...
+       Minor ใช้ชื่อ Wands01, Cups01, Swords01, Pentacles01...
+    */
+
+    return "https://commons.wikimedia.org/wiki/Special:FilePath/"
+        + encodeURIComponent(card.file);
+}
+
+
+/* =========================================================
+   FAN
+========================================================= */
+
+function createFan(){
+
+    const fan=document.getElementById("fan");
+
+    fan.innerHTML="";
+
+    const visible=window.innerWidth<550 ? 16 : 24;
+
+    for(let i=0;i<visible;i++){
+
+        const el=document.createElement("div");
+
+        el.className="fanCard";
+
+        const angle=-34+(i/(visible-1))*68;
+
+        const x=(i-(visible-1)/2)*35;
+
+        el.style.transform=
+            `translateX(${x}px) rotate(${angle}deg)`;
+
+        el.style.zIndex=i;
+
+        el.innerHTML=`
+            <div class="cardBack"></div>
+        `;
+
+        el.onclick=()=>selectCard(i,el);
+
+        fan.appendChild(el);
+    }
+}
+
+
+/* =========================================================
+   SELECT CARD
+========================================================= */
+
+function selectCard(index,el){
+
+    if(selected.length>=spreadCount){
+
+        alert("เลือกครบแล้ว กด “ดูหน้าไพ่” ได้เลย");
+
+        return;
+    }
+
+    /*
+       ใช้การเลือกแบบ deterministic จากตำแหน่ง
+       แต่สับสำรับใหม่ทุกครั้งก่อนเริ่ม session
+    */
+
+    const card=availableDeck[index];
+
+    if(!card)return;
+
+    if(selected.find(x=>x.name===card.name))return;
+
+    selected.push(card);
+
+    el.classList.add("selected");
+
+    el.style.transform=
+        el.style.transform.replace(
+            /rotate\([^)]*\)/,
+            "rotate(0deg)"
+        )+" translateY(-45px)";
+
+    renderSelected();
+
+    document.getElementById("currentNumber").textContent=
+        Math.min(selected.length+1,spreadCount);
+}
+
+
+/* =========================================================
+   DECK SHUFFLE
+========================================================= */
+
+let availableDeck=[];
+
+function shuffleDeck(){
+
+    availableDeck=[...allCards];
+
+    for(let i=availableDeck.length-1;i>0;i--){
+
+        const j=Math.floor(Math.random()*(i+1));
+
+        [availableDeck[i],availableDeck[j]]=
+        [availableDeck[j],availableDeck[i]];
+    }
+}
+
+
+/* =========================================================
+   SELECTED
+========================================================= */
+
+function renderSelected(){
+
+    const area=document.getElementById("selectedArea");
+
+    area.innerHTML="";
+
+    for(let i=0;i<spreadCount;i++){
+
+        const slot=document.createElement("div");
+
+        slot.className="slot";
+
+        const label=document.createElement("div");
+
+        label.className="slotLabel";
+
+        label.textContent=
+            spreadCount===3
+            ? ["อดีต","ปัจจุบัน","แนวโน้ม"][i]
+            : `ใบที่ ${i+1}`;
+
+        slot.appendChild(label);
+
+        if(selected[i]){
+
+            const img=document.createElement("img");
+
+            img.className="selectedCardMini";
+
+            img.src=imageUrl(selected[i]);
+
+            img.onerror=()=>{
+                img.style.display="none";
+            };
+
+            slot.appendChild(img);
+
+        }else{
+
+            slot.innerHTML+=`<span>ยังไม่ได้เลือก</span>`;
+
+        }
+
+        area.appendChild(slot);
+    }
+}
+
+
+/* =========================================================
+   SPREAD
+========================================================= */
+
+function setSpread(n,btn){
+
+    spreadCount=n;
+
+    document.querySelectorAll(".spreadBtn")
+        .forEach(x=>x.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    resetReading();
+}
+
+
+/* =========================================================
+   TOPIC
+========================================================= */
+
+function setTopic(t,btn){
+
+    topic=t;
+
+    document.querySelectorAll(".topic")
+        .forEach(x=>x.classList.remove("active"));
+
+    btn.classList.add("active");
+}
+
+
+/* =========================================================
+   OPEN READING
+========================================================= */
+
+function openReading(){
+
+    if(selected.length<spreadCount){
+
+        alert(`กรุณาเลือกไพ่ให้ครบ ${spreadCount} ใบก่อน`);
+
+        return;
+    }
+
+    const reading=document.getElementById("reading");
+
+    const cards=document.getElementById("readCards");
+
+    cards.innerHTML="";
+
+    selected.forEach((card,i)=>{
+
+        const box=document.createElement("div");
+
+        box.className="openCard";
+
+        const img=document.createElement("img");
+
+        img.src=imageUrl(card);
+
+        img.alt=card.name;
+
+        img.onerror=()=>{
+            img.alt="ไม่สามารถโหลดภาพไพ่";
+        };
+
+        box.appendChild(img);
+
+        const position=document.createElement("div");
+
+        position.className="position";
+
+        position.textContent=getPosition(i);
+
+        box.appendChild(position);
+
+        const name=document.createElement("div");
+
+        name.className="cardName";
+
+        name.textContent=card.name;
+
+        box.appendChild(name);
+
+        cards.appendChild(box);
+
+    });
+
+
+    renderDetails();
+
+    reading.classList.add("show");
+
+    reading.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+
+/* =========================================================
+   POSITION
+========================================================= */
+
+function getPosition(i){
+
+    if(spreadCount===1)
+        return "คำตอบหลัก";
+
+    if(spreadCount===3)
+        return ["อดีต","ปัจจุบัน","แนวโน้มข้างหน้า"][i];
+
+    if(spreadCount===5)
+        return [
+            "สถานการณ์",
+            "สิ่งที่ส่งผล",
+            "สิ่งที่มองไม่เห็น",
+            "สิ่งที่ควรทำ",
+            "แนวโน้ม"
+        ][i];
+
+    return [
+        "สถานการณ์ปัจจุบัน",
+        "อุปสรรค",
+        "อดีต",
+        "อนาคตใกล้",
+        "สิ่งที่คุณคิด",
+        "สิ่งที่อยู่เบื้องหลัง",
+        "อิทธิพลรอบตัว",
+        "ความหวัง/ความกลัว",
+        "สิ่งที่ควรระวัง",
+        "แนวโน้ม"
+    ][i];
+}
+
+
+/* =========================================================
+   DETAIL
+========================================================= */
+
+function renderDetails(){
+
+    const root=document.getElementById("details");
+
+    root.innerHTML="";
+
+    selected.forEach((card,i)=>{
+
+        const section=document.createElement("div");
+
+        section.className="detail";
+
+        section.innerHTML=`
+
+            <div class="detailCard">
+
+                <img
+                    src="${imageUrl(card)}"
+                    alt="${card.name}"
+                    onerror="this.style.display='none'"
+                >
+
+            </div>
+
+
+            <div class="detailMain">
+
+                <span class="badge">
+                    ${getPosition(i)}
+                </span>
+
+                <h2>${card.name}</h2>
+
+                <p style="color:#8f89a8">
+                    ${card.thai || ""}
+                </p>
+
+                <div class="sectionTitle">
+                    ความหมายโดยรวม
+                </div>
+
+                <p>
+                    ${card.meaning}
+                </p>
+
+                <div class="detailGrid">
+
+                    <div class="infoBox">
+
+                        <b>🧠 มุมมองทางจิตวิทยา</b>
+
+                        <span>
+                            ${card.psych}
+                        </span>
+
+                    </div>
+
+                    <div class="infoBox">
+
+                        <b>❤️ ความรัก</b>
+
+                        <span>
+                            ${card.love}
+                        </span>
+
+                    </div>
+
+                    <div class="infoBox">
+
+                        <b>💼 การงาน / การเรียน</b>
+
+                        <span>
+                            ${card.work}
+                        </span>
+
+                    </div>
+
+                    <div class="infoBox">
+
+                        <b>💰 การเงิน</b>
+
+                        <span>
+                            ${card.money}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="sectionTitle">
+                    ถ้าไพ่ใบนี้กลับหัว
+                </div>
+
+                <p>
+                    ${card.reverse}
+                </p>
+
+
+                <div class="sectionTitle">
+                    🔎 คำแนะนำ
+                </div>
+
+                <p>
+                    ${card.advice}
+                </p>
+
+
+                <div class="questionBox">
+
+                    <b>คำถามที่ควรถามตัวเอง</b><br>
+
+                    ${card.advice}
+
+                </div>
+
+            </div>
+
+        `;
+
+        root.appendChild(section);
+
+    });
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetReading(){
+
+    selected=[];
+
+    shuffleDeck();
+
+    document.getElementById("reading")
+        .classList.remove("show");
+
+    document.getElementById("currentNumber")
+        .textContent="1";
+
+    renderSelected();
+
+    createFan();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================================================
+   DECK
+========================================================= */
+
+function renderDeck(filter="all"){
+
+    const root=document.getElementById("deckGrid");
+
+    root.innerHTML="";
+
+    let list=allCards;
+
+    if(filter==="major")
+        list=major;
+
+    if(filter==="minor")
+        list=minor;
+
+    list.forEach(card=>{
+
+        const item=document.createElement("div");
+
+        item.className="deckItem";
+
+        item.innerHTML=`
+
+            <img
+                src="${imageUrl(card)}"
+                alt="${card.name}"
+                onerror="this.style.display='none'"
+            >
+
+            <span>${card.name}</span>
+
+        `;
+
+        item.onclick=()=>{
+
+            selected=[card];
+
+            spreadCount=1;
+
+            renderSelected();
+
+            openReading();
+
+        };
+
+        root.appendChild(item);
+
+    });
+
+}
+
+
+function filterDeck(filter,btn){
+
+    document.querySelectorAll(".filterBtns button")
+        .forEach(x=>x.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    renderDeck(filter);
+}
+
+
+function showDeck(){
+
+    document.getElementById("deckSection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =========================================================
+   DAILY CARD
+========================================================= */
+
+function dailyCard(){
+
+    const today=new Date();
+
+    const seed=
+        today.getFullYear()+
+        today.getMonth()+
+        today.getDate();
+
+    const card=
+        allCards[
+            Math.abs(seed*37)%allCards.length
+        ];
+
+    selected=[card];
+
+    spreadCount=1;
+
+    renderSelected();
+
+    openReading();
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function showHistory(){
+
+    const history=
+        JSON.parse(
+            localStorage.getItem("astraHistory")||"[]"
+        );
+
+    if(!history.length){
+
+        alert("ยังไม่มีประวัติการเปิดไพ่");
+
+        return;
+    }
+
+    alert(
+        "ประวัติการเปิดไพ่\n\n"+
+        history.slice(-10)
+        .map(x=>x.date+" — "+x.cards.join(", "))
+        .join("\n")
+    );
+
+}
+
+
+/* =========================================================
+   SAVE HISTORY
+========================================================= */
+
+function saveHistory(){
+
+    const history=
+        JSON.parse(
+            localStorage.getItem("astraHistory")||"[]"
+        );
+
+    history.push({
+
+        date:new Date().toLocaleString("th-TH"),
+
+        topic,
+
+        cards:selected.map(x=>x.name)
+
+    });
+
+    localStorage.setItem(
+        "astraHistory",
+        JSON.stringify(history)
+    );
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+function goTop(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+function toggleSound(){
+
+    soundOn=!soundOn;
+
+    alert(
+        soundOn
+        ? "เปิดเสียงแล้ว"
+        : "ปิดเสียงแล้ว"
+    );
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+shuffleDeck();
+
+createFan();
+
+renderSelected();
+
+renderDeck();
+
+</script>
+
+</body>
+</html>
